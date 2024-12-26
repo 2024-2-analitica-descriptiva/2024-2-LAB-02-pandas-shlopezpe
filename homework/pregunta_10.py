@@ -5,6 +5,7 @@ datos requeridos se encuentran en los archivos `tbl0.tsv`, `tbl1.tsv` y
 librerias de pandas para resolver las preguntas.
 """
 
+import pandas as pd
 
 def pregunta_10():
     """
@@ -20,3 +21,10 @@ def pregunta_10():
     D                   1:2:3:5:5:7
     E   1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
+
+    tabla1 = pd.read_csv("files/input/tbl0.tsv", sep="\t")
+    tabla2 = tabla1.copy()
+    n_tbl = tabla2.groupby('c1')['c2'].apply(lambda x: ':'.join(sorted(map(str, x), key=int))).reset_index().set_index('c1')
+    n_tbl.columns = ['c2']
+    return n_tbl
+print(pregunta_10())
